@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 class MyHomePage extends HookWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -27,10 +28,30 @@ class MyHomePage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textEditingController = useTextEditingController();
+    final text = useState('');
+    useEffect(
+      () {
+        textEditingController.addListener(() {
+          text.value = textEditingController.text;
+        });
+        return null;
+      },
+      [textEditingController],
+    );
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home page',
+        title: const Text(
+          'Home page',
         ),
+      ),
+      body: Column(
+        children: [
+          TextField(
+            controller: textEditingController,
+          ),
+          Text('You types ${text.value}'),
+        ],
       ),
     );
   }
