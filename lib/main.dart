@@ -20,14 +20,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-Stream<String> getTime() => Stream.periodic(
-      const Duration(
-        seconds: 1,
-      ),
-      (_) => DateTime.now().toIso8601String(),
-    );
-
 class MyHomePage extends HookWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -35,13 +27,9 @@ class MyHomePage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dateTime = useStream(
-      getTime(),
-    );
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          dateTime.data ?? 'Home page',
+        title: const Text('Home page',
         ),
       ),
     );
